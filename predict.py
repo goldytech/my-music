@@ -31,7 +31,7 @@ def generate():
     prediction_output = generate_notes(
         model, network_input, pitchnames, n_vocab
     )
-    create_midi(prediction_output)
+    create_midi(prediction_output )
 
 
 def create_network(network_input, n_vocab):
