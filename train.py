@@ -14,7 +14,7 @@ from music21 import instrument, note, stream, chord, converter, duration
 TIMESTEP = 0.25
 SEQUENCE_LEN = int(8 / TIMESTEP)
 MODEL_NAME = 'my_music_model'
-model = None
+
 
 
 def get_notes():
@@ -59,7 +59,7 @@ def get_notes():
     return notes
 
 
-def prepare_sequences(self, notes, n_vocab):
+def prepare_sequences(notes, n_vocab):
     """ Prepare the sequences used by the Neural Network """
     # get all pitch names
     pitch_names = sorted(set(item for item in notes))
@@ -124,15 +124,15 @@ def start(notes_file=None):
 
     network_input, network_output = prepare_sequences(notes, n_vocab)
 
-    model = create_network(network_input, n_vocab)
+    my_model = create_network(network_input, n_vocab)
 
-    train(network_input, network_output)
+    train(network_input, network_output,my_model)
     file_name = MODEL_NAME + ".hdf5"
-    model.save(file_name)
+    my_model.save(file_name)
     print(f"Model saved to {file_name}")
 
 
-def train(network_input, network_output):
+def train(network_input, network_output, model):
     """ train the neural network """
     filepath = (
             MODEL_NAME + "-weights-improvement-{epoch:02d}-{loss:.4f}-bigger.hdf5"
@@ -151,4 +151,4 @@ def train(network_input, network_output):
 
 
 
-start(None)
+start('notes/notes_model')
